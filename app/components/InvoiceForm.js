@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import InvoiceItem from './InvoiceItem';
-import InvoiceModal from './InvoiceModal';
-import InputGroup from 'react-bootstrap/InputGroup';
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Card from "react-bootstrap/Card";
+import InvoiceItem from "./InvoiceItem";
+import InvoiceModal from "./InvoiceModal";
+import InputGroup from "react-bootstrap/InputGroup";
 
 function InvoiceForm(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [currency, setCurrency] = useState('$');
-  const [currentDate, setCurrentDate] = useState('');
+  const [currency, setCurrency] = useState("$");
+  const [currentDate, setCurrentDate] = useState("");
   const [invoiceNumber, setInvoiceNumber] = useState(1);
-  const [dateOfIssue, setDateOfIssue] = useState('');
-  const [billTo, setBillTo] = useState('');
-  const [billToEmail, setBillToEmail] = useState('');
-  const [billToAddress, setBillToAddress] = useState('');
-  const [billFrom, setBillFrom] = useState('');
-  const [billFromEmail, setBillFromEmail] = useState('');
-  const [billFromAddress, setBillFromAddress] = useState('');
-  const [notes, setNotes] = useState('');
-  const [total, setTotal] = useState('0.00');
-  const [subTotal, setSubTotal] = useState('0.00');
-  const [taxRate, setTaxRate] = useState('');
-  const [taxAmount, setTaxAmount] = useState('0.00');
-  const [discountRate, setDiscountRate] = useState('');
-  const [discountAmount, setDiscountAmount] = useState('0.00');
+  const [dateOfIssue, setDateOfIssue] = useState("");
+  const [billTo, setBillTo] = useState("");
+  const [billToEmail, setBillToEmail] = useState("");
+  const [billToAddress, setBillToAddress] = useState("");
+  const [billFrom, setBillFrom] = useState("");
+  const [billFromEmail, setBillFromEmail] = useState("");
+  const [billFromAddress, setBillFromAddress] = useState("");
+  const [notes, setNotes] = useState("");
+  const [total, setTotal] = useState("0.00");
+  const [subTotal, setSubTotal] = useState("0.00");
+  const [taxRate, setTaxRate] = useState("");
+  const [taxAmount, setTaxAmount] = useState("0.00");
+  const [discountRate, setDiscountRate] = useState("");
+  const [discountAmount, setDiscountAmount] = useState("0.00");
 
   const [items, setItems] = useState([
     {
       id: 0,
-      name: '',
-      description: '',
-      price: '1.00',
-      quantity: 1
-    }
+      name: "",
+      description: "",
+      price: "1.00",
+      quantity: 1,
+    },
   ]);
 
   useEffect(() => {
@@ -52,10 +52,10 @@ function InvoiceForm(props) {
     const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     const newItem = {
       id,
-      name: '',
-      price: '1.00',
-      description: '',
-      quantity: 1
+      name: "",
+      price: "1.00",
+      description: "",
+      quantity: 1,
     };
     setItems([...items, newItem]);
   };
@@ -63,19 +63,29 @@ function InvoiceForm(props) {
   const handleCalculateTotal = () => {
     let subTotal = 0;
     items.forEach((item) => {
-      subTotal += parseFloat((parseFloat(item.price) * item.quantity).toFixed(2));
+      subTotal += parseFloat(
+        (parseFloat(item.price) * item.quantity).toFixed(2)
+      );
     });
 
     const calculatedSubTotal = parseFloat(subTotal).toFixed(2);
     setSubTotal(calculatedSubTotal);
 
-    const calculatedTaxAmount = parseFloat(calculatedSubTotal * (taxRate / 100)).toFixed(2);
+    const calculatedTaxAmount = parseFloat(
+      calculatedSubTotal * (taxRate / 100)
+    ).toFixed(2);
     setTaxAmount(calculatedTaxAmount);
 
-    const calculatedDiscountAmount = parseFloat(calculatedSubTotal * (discountRate / 100)).toFixed(2);
+    const calculatedDiscountAmount = parseFloat(
+      calculatedSubTotal * (discountRate / 100)
+    ).toFixed(2);
     setDiscountAmount(calculatedDiscountAmount);
 
-    const calculatedTotal = parseFloat(calculatedSubTotal - calculatedDiscountAmount + parseFloat(calculatedTaxAmount)).toFixed(2);
+    const calculatedTotal = parseFloat(
+      calculatedSubTotal -
+        calculatedDiscountAmount +
+        parseFloat(calculatedTaxAmount)
+    ).toFixed(2);
     setTotal(calculatedTotal);
   };
 
@@ -94,31 +104,31 @@ function InvoiceForm(props) {
   const editField = (event) => {
     const { name, value } = event.target;
     switch (name) {
-      case 'dateOfIssue':
+      case "dateOfIssue":
         setDateOfIssue(value);
         break;
-      case 'invoiceNumber':
+      case "invoiceNumber":
         setInvoiceNumber(value);
         break;
-      case 'billTo':
+      case "billTo":
         setBillTo(value);
         break;
-      case 'billToEmail':
+      case "billToEmail":
         setBillToEmail(value);
         break;
-      case 'billToAddress':
+      case "billToAddress":
         setBillToAddress(value);
         break;
-      case 'billFrom':
+      case "billFrom":
         setBillFrom(value);
         break;
-      case 'billFromEmail':
+      case "billFromEmail":
         setBillFromEmail(value);
         break;
-      case 'billFromAddress':
+      case "billFromAddress":
         setBillFromAddress(value);
         break;
-      case 'notes':
+      case "notes":
         setNotes(value);
         break;
       default:
@@ -149,7 +159,7 @@ function InvoiceForm(props) {
     <Form onSubmit={openModal}>
       <Row>
         <Col md={8} lg={9}>
-          <Card className="p-4 p-xl-5 my-3 my-xl-4">
+          <Card className="bg-black text-white p-4 p-xl-5 my-3 my-xl-4">
             <div className="d-flex flex-row align-items-start justify-content-between mb-3">
               <div className="d-flex flex-column">
                 <div className="d-flex flex-column">
@@ -166,7 +176,7 @@ function InvoiceForm(props) {
                     name="dateOfIssue"
                     onChange={(event) => editField(event)}
                     style={{
-                      maxWidth: '150px'
+                      maxWidth: "150px",
                     }}
                     required
                   />
@@ -178,10 +188,11 @@ function InvoiceForm(props) {
                   type="number"
                   value={invoiceNumber}
                   name="invoiceNumber"
+                  color="white"
                   onChange={(event) => editField(event)}
                   min="1"
                   style={{
-                    maxWidth: '70px'
+                    maxWidth: "70px",
                   }}
                   required
                 />
@@ -294,7 +305,7 @@ function InvoiceForm(props) {
                 <div
                   className="d-flex flex-row align-items-start justify-content-between"
                   style={{
-                    fontSize: '1.125rem'
+                    fontSize: "1.125rem",
                   }}
                 >
                   <span className="fw-bold">Total:</span>
@@ -343,14 +354,16 @@ function InvoiceForm(props) {
                 taxRate,
                 taxAmount,
                 discountRate,
-                discountAmount
+                discountAmount,
               }}
               items={items}
             />
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Currency:</Form.Label>
               <Form.Select
-                onChange={(event) => onCurrencyChange({ currency: event.target.value })}
+                onChange={(event) =>
+                  onCurrencyChange({ currency: event.target.value })
+                }
                 className="btn btn-light my-1"
                 aria-label="Change Currency"
                 value={currency}
@@ -366,39 +379,39 @@ function InvoiceForm(props) {
               </Form.Select>
             </Form.Group>
             <Form.Group className="my-3">
-              <Form.Label className="fw-bold">Tax rate:</Form.Label>
+              <Form.Label className="fw-bold text-white">Tax rate:</Form.Label>
               <InputGroup className="my-1 flex-nowrap">
                 <Form.Control
                   name="taxRate"
                   type="number"
                   value={taxRate}
                   onChange={(event) => editField(event)}
-                  className="bg-white border"
+                  className="bg-212529 border"
                   placeholder="0.0"
                   min="0.00"
                   step="0.01"
                   max="100.00"
                 />
-                <InputGroup.Text className="bg-light fw-bold text-secondary small">
+                <InputGroup.Text className="bg-black border fw-bold text-secondary small">
                   %
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
             <Form.Group className="my-3">
-              <Form.Label className="fw-bold">Discount rate:</Form.Label>
+              <Form.Label className="fw-bold text-white">Discount rate:</Form.Label>
               <InputGroup className="my-1 flex-nowrap">
                 <Form.Control
                   name="discountRate"
                   type="number"
                   value={discountRate}
                   onChange={(event) => editField(event)}
-                  className="bg-white border"
+                  className="bg-212529 border"
                   placeholder="0.0"
                   min="0.00"
                   step="0.01"
                   max="100.00"
                 />
-                <InputGroup.Text className="bg-light fw-bold text-secondary small">
+                <InputGroup.Text className="bg-black border fw-bold text-secondary small">
                   %
                 </InputGroup.Text>
               </InputGroup>

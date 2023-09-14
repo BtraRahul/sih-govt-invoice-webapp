@@ -5,10 +5,10 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 function EditableField(props) {
   return (
-    <InputGroup className="my-1 flex-nowrap">
+    <InputGroup className="my-1 flex-nowrap ">
       {props.cellData.leading != null && (
         <InputGroup.Text
-          className="bg-light fw-bold border-0 text-secondary px-2"
+          className="bg-black fw-bold border-0 text-secondary px-2"
         >
           <span
             className="border border-2 border-secondary rounded-circle d-flex align-items-center justify-content-center small"

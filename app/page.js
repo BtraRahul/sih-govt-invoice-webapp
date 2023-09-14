@@ -9,7 +9,7 @@ import { UserButton } from "@clerk/nextjs";
 
 function App() {
   return (
-    <div className="App d-flex flex-column align-items-center justify-content-center w-100">
+    <div className="bg-dark App d-flex flex-column align-items-center justify-content-center w-100">
       <UserButton afterSignOutUrl="/" />
 
       <Container>

@@ -10,13 +10,13 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 function GenerateInvoice() {
-  // useEffect(() => {
   html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
     const imgData = canvas.toDataURL("image/png", 1.0);
     const pdf = new jsPDF({
+      backgroundColor: "black",
       orientation: "portrait",
       unit: "pt",
-      format: [612, 792],
+      format: [1224, 1584],
     });
     pdf.internal.scaleFactor = 1;
     const imgProps = pdf.getImageProperties(imgData);
@@ -39,7 +39,7 @@ function InvoiceModal(props) {
         centered
       >
         <div id="invoiceCapture">
-          <div className="d-flex flex-row justify-content-between align-items-start bg-light w-100 p-4">
+          <div className="capitalize bg-black text-white d-flex flex-row justify-content-between align-items-start w-100 p-4">
             <div className="w-100">
               <h4 className="fw-bold my-2">
                 {props.info.billFrom || "John Uberbacher"}
@@ -49,14 +49,14 @@ function InvoiceModal(props) {
               </h6>
             </div>
             <div className="text-end ms-4">
-              <h6 className="fw-bold mt-1 mb-2">Amount&nbsp;Due:</h6>
+              {/* <h6 className="c fw-bold mt-1 mb-2">Amount&nbsp;Due:</h6> */}
               <h5 className="fw-bold text-secondary">
                 {" "}
                 {props.currency} {props.total}
               </h5>
             </div>
           </div>
-          <div className="p-4">
+          <div className="p-4 bg-dark text-white border">
             <Row className="mb-4">
               <Col md={4}>
                 <div className="fw-bold">Billed to:</div>
@@ -75,7 +75,7 @@ function InvoiceModal(props) {
                 <div>{props.info.dateOfIssue || ""}</div>
               </Col>
             </Row>
-            <Table className="mb-0">
+            <Table className="mb-0 hello">
               <thead>
                 <tr>
                   <th>QTY</th>
@@ -103,16 +103,16 @@ function InvoiceModal(props) {
                 })}
               </tbody>
             </Table>
-            <Table>
-              <tbody>
+            <Table >
+              <tbody className="bg-dark border-none hello">
                 <tr>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                 </tr>
-                <tr className="text-end">
+                <tr className="bg-dark border-none  text-end ">
                   <td></td>
-                  <td className="fw-bold" style={{ width: "100px" }}>
+                  <td className="bg-dark border-none fw-bold" style={{ width: "100px" }}>
                     SUBTOTAL
                   </td>
                   <td className="text-end" style={{ width: "100px" }}>
@@ -122,7 +122,7 @@ function InvoiceModal(props) {
                 {props.taxAmmount !== "0.00" && (
                   <tr className="text-end">
                     <td></td>
-                    <td className="fw-bold" style={{ width: "100px" }}>
+                    <td className="bg-dark border-none fw-bold" style={{ width: "100px" }}>
                       TAX
                     </td>
                     <td className="text-end" style={{ width: "100px" }}>
@@ -133,7 +133,7 @@ function InvoiceModal(props) {
                 {props.discountAmmount !== "0.00" && (
                   <tr className="text-end">
                     <td></td>
-                    <td className="fw-bold" style={{ width: "100px" }}>
+                    <td className="bg-dark border-none fw-bold" style={{ width: "100px" }}>
                       DISCOUNT
                     </td>
                     <td className="text-end" style={{ width: "100px" }}>
@@ -143,7 +143,7 @@ function InvoiceModal(props) {
                 )}
                 <tr className="text-end">
                   <td></td>
-                  <td className="fw-bold" style={{ width: "100px" }}>
+                  <td className="bg-dark border-none fw-bold" style={{ width: "100px" }}>
                     TOTAL
                   </td>
                   <td className="text-end" style={{ width: "100px" }}>
@@ -159,7 +159,7 @@ function InvoiceModal(props) {
             )}
           </div>
         </div>
-        <div className="pb-4 px-4">
+        <div className="pb-4 px-4 hello">
           <Row>
             <Col md={6}>
               <Button
@@ -176,7 +176,7 @@ function InvoiceModal(props) {
             </Col>
             <Col md={6}>
               <Button
-                variant="outline-primary"
+                variant="outline-secondary text-white"
                 className="d-block w-100 mt-3 mt-md-0"
                 onClick={GenerateInvoice}
               >

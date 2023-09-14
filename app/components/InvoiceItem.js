@@ -19,7 +19,7 @@ function InvoiceItem(props) {
   ));
 
   return (
-    <div>
+    <div  className="bg-black">
       <Table>
         <thead>
           <tr>
