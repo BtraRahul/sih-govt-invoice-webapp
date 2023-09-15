@@ -1,3 +1,13 @@
+## Presentation :
+[Presentation](https://docs.google.com/presentation/d/1uYyEteRxvHL4QwiutbSYc0tcl8z358kE/edit?usp=drive_link&ouid=103139531473251460018&rtpof=true&sd=true)
+
+
+## Prototype For Web Version:
+[Web Version](https://drive.google.com/file/d/1uixSie33TOeaVVBuagb4tagrnmGdckzw/view?usp=sharing)
+
+[App Version](https://drive.google.com/file/d/1QFsx4H77JK7EVGW_Y74uF_M-vbObwdKc/view?usp=drive_link)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
