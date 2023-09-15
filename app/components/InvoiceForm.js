@@ -25,40 +25,28 @@ function InvoiceForm(props) {
   const [notes, setNotes] = useState("");
   const [total, setTotal] = useState("0.00");
   const [subTotal, setSubTotal] = useState("0.00");
-  const [taxRate, setTaxRate] = useState("");
+  const [taxRate, setTaxRate] = useState(0); // Initialize as a number
+  const [discountRate, setDiscountRate] = useState(0); // Initialize as a number
   const [taxAmount, setTaxAmount] = useState("0.00");
-  const [discountRate, setDiscountRate] = useState("");
   const [discountAmount, setDiscountAmount] = useState("0.00");
 
-  const [items, setItems] = useState([
-    {
-      id: 0,
-      name: "",
-      description: "",
-      price: "1.00",
-      quantity: 1,
-    },
-  ]);
-
-  useEffect(() => {
-    handleCalculateTotal();
-  }, [items]);
-
-  const handleRowDel = (item) => {
-    const updatedItems = items.filter((i) => i.id !== item.id);
-    setItems(updatedItems);
-  };
+  const [items, setItems] = useState([]);
 
   const handleAddEvent = () => {
     const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     const newItem = {
       id,
       name: "",
-      price: "1.00",
+      price: "0.00",
       description: "",
       quantity: 1,
     };
     setItems([...items, newItem]);
+  };
+
+  const handleRowDel = (item) => {
+    const updatedItems = items.filter((i) => i.id !== item.id);
+    setItems(updatedItems);
   };
 
   const handleCalculateTotal = () => {
@@ -69,7 +57,7 @@ function InvoiceForm(props) {
       );
     });
 
-    const calculatedSubTotal = parseFloat(subTotal).toFixed(2);
+    const calculatedSubTotal = subTotal;
     setSubTotal(calculatedSubTotal);
 
     const calculatedTaxAmount = parseFloat(
@@ -131,6 +119,12 @@ function InvoiceForm(props) {
         break;
       case "notes":
         setNotes(value);
+        break;
+      case "taxRate":
+        setTaxRate(value);
+        break;
+      case "discountRate":
+        setDiscountRate(value);
         break;
       default:
         break;
@@ -321,7 +315,7 @@ function InvoiceForm(props) {
             <Form.Label className="fw-bold">Notes:</Form.Label>
             <Form.Control
               placeholder="Thanks for your business!"
-              name="notes"
+              name="notes" // Add the name attribute
               value={notes}
               onChange={(event) => editField(event)}
               as="textarea"
@@ -388,7 +382,7 @@ function InvoiceForm(props) {
                   value={taxRate}
                   onChange={(event) => editField(event)}
                   className="bg-212529 border"
-                  placeholder="0.0"
+                  placeholder="0.00"
                   min="0.00"
                   step="0.01"
                   max="100.00"
@@ -409,7 +403,7 @@ function InvoiceForm(props) {
                   value={discountRate}
                   onChange={(event) => editField(event)}
                   className="bg-212529 border"
-                  placeholder="0.0"
+                  placeholder="0.00"
                   min="0.00"
                   step="0.01"
                   max="100.00"

@@ -149,3 +149,13 @@ hr {
   /* font-size: 1.2rem; */
   background-color: #1a1a1a;
 }
+
+.form-select, .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select{
+  color: white;
+}
+textarea.my-2.form-control {
+    color: white;
+}
+input.my-2.form-control {
+    color: white;
+}
