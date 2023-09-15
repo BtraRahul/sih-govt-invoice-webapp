@@ -32,6 +32,9 @@ function InvoiceForm(props) {
 
   const [items, setItems] = useState([]);
 
+  useEffect(() => {
+    handleCalculateTotal();
+  }, [items]);
   const handleAddEvent = () => {
     const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     const newItem = {
