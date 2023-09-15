@@ -35,6 +35,7 @@ function InvoiceForm(props) {
   useEffect(() => {
     handleCalculateTotal();
   }, [items]);
+
   const handleAddEvent = () => {
     const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     const newItem = {
@@ -55,29 +56,20 @@ function InvoiceForm(props) {
   const handleCalculateTotal = () => {
     let subTotal = 0;
     items.forEach((item) => {
-      subTotal += parseFloat(
-        (parseFloat(item.price) * item.quantity).toFixed(2)
-      );
+      subTotal += item.price * item.quantity;
     });
 
     const calculatedSubTotal = subTotal;
     setSubTotal(calculatedSubTotal);
 
-    const calculatedTaxAmount = parseFloat(
-      calculatedSubTotal * (taxRate / 100)
-    ).toFixed(2);
+    const calculatedTaxAmount = calculatedSubTotal * (taxRate / 100);
     setTaxAmount(calculatedTaxAmount);
 
-    const calculatedDiscountAmount = parseFloat(
-      calculatedSubTotal * (discountRate / 100)
-    ).toFixed(2);
+    const calculatedDiscountAmount = calculatedSubTotal * (discountRate / 100);
     setDiscountAmount(calculatedDiscountAmount);
 
-    const calculatedTotal = parseFloat(
-      calculatedSubTotal -
-        calculatedDiscountAmount +
-        parseFloat(calculatedTaxAmount)
-    ).toFixed(2);
+    const calculatedTotal =
+      calculatedSubTotal - calculatedDiscountAmount + calculatedTaxAmount;
     setTotal(calculatedTotal);
   };
 
@@ -383,7 +375,7 @@ function InvoiceForm(props) {
                   name="taxRate"
                   type="number"
                   value={taxRate}
-                  onChange={(event) => editField(event)}
+                  onInput={(event) => editField(event)}
                   className="bg-212529 border"
                   placeholder="0.00"
                   min="0.00"
@@ -404,7 +396,7 @@ function InvoiceForm(props) {
                   name="discountRate"
                   type="number"
                   value={discountRate}
-                  onChange={(event) => editField(event)}
+                  onInput={(event) => editField(event)}
                   className="bg-212529 border"
                   placeholder="0.00"
                   min="0.00"

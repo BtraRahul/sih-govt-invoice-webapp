@@ -56,6 +56,11 @@ function SaveInvoice(props) {
 }
 
 function InvoiceModal(props) {
+  const totalWithTaxAndDiscount = (
+    parseFloat(props.subTotal) +
+    parseFloat(props.taxAmount) -
+    parseFloat(props.discountAmount)
+  ).toFixed(2);
   return (
     <div>
       <Modal
@@ -78,7 +83,8 @@ function InvoiceModal(props) {
               {/* <h6 className="c fw-bold mt-1 mb-2">Amount&nbsp;Due:</h6> */}
               <h5 className="fw-bold text-secondary">
                 {" "}
-                {props.currency} {props.total}
+                {props.info.currency} {props.info.totalWithTaxAndDiscount}
+                {/* {props.currency} {props.total} */}
               </h5>
             </div>
           </div>
@@ -145,10 +151,10 @@ function InvoiceModal(props) {
                     SUBTOTAL
                   </td>
                   <td className="text-end" style={{ width: "100px" }}>
-                    {props.currency} {props.subTotal}
+                    {props.info.currency} {props.info.subTotal}
                   </td>
                 </tr>
-                {props.taxAmmount !== "0.00" && (
+                {props.info.taxAmount !== "0.00" && (
                   <tr className="text-end">
                     <td></td>
                     <td
@@ -158,11 +164,11 @@ function InvoiceModal(props) {
                       TAX
                     </td>
                     <td className="text-end" style={{ width: "100px" }}>
-                      {props.currency} {props.taxAmmount}
+                      {props.info.currency} {props.info.taxAmount}
                     </td>
                   </tr>
                 )}
-                {props.discountAmmount !== "0.00" && (
+                {props.info.discountAmount !== "0.00" && (
                   <tr className="text-end">
                     <td></td>
                     <td
@@ -171,8 +177,8 @@ function InvoiceModal(props) {
                     >
                       DISCOUNT
                     </td>
-                    <td className="text-end" style={{ width: "100px" }}>
-                      {props.currency} {props.discountAmmount}
+                    <td className="text-white text-end" style={{ width: "100px" }}>
+                      {props.info.currency} {props.info.discountAmount}
                     </td>
                   </tr>
                 )}
@@ -185,7 +191,7 @@ function InvoiceModal(props) {
                     TOTAL
                   </td>
                   <td className="text-end" style={{ width: "100px" }}>
-                    {props.currency} {props.total}
+                    {props.info.currency} {props.info.total}
                   </td>
                 </tr>
               </tbody>
