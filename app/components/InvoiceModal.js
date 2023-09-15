@@ -34,10 +34,7 @@ function GenerateInvoice() {
   return null;
 }
 
-
-
 function SaveInvoice(props) {
-  
   const docRef = addDoc(collection(db, "invoices"), {
     invoiceNumber: props.info.invoiceNumber,
 
@@ -206,7 +203,7 @@ function InvoiceModal(props) {
               <Button
                 variant="primary"
                 className="d-block w-100"
-                onClick={SaveInvoice(props)}
+                onClick={() => SaveInvoice(props)}
               >
                 <BiPaperPlane
                   style={{ width: "15px", height: "15px", marginTop: "-3px" }}

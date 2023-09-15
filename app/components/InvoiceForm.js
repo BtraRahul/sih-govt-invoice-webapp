@@ -399,7 +399,9 @@ function InvoiceForm(props) {
               </InputGroup>
             </Form.Group>
             <Form.Group className="my-3">
-              <Form.Label className="fw-bold text-white">Discount rate:</Form.Label>
+              <Form.Label className="fw-bold text-white">
+                Discount rate:
+              </Form.Label>
               <InputGroup className="my-1 flex-nowrap">
                 <Form.Control
                   name="discountRate"
