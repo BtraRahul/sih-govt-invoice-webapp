@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Row from "react-bootstrap/Row";
@@ -8,6 +9,10 @@ import Modal from "react-bootstrap/Modal";
 import { BiPaperPlane, BiCloudDownload } from "react-icons/bi";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+
+//firebase add data
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 function GenerateInvoice() {
   html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
@@ -29,6 +34,30 @@ function GenerateInvoice() {
   return null;
 }
 
+
+
+function SaveInvoice(props) {
+  
+  const docRef = addDoc(collection(db, "invoices"), {
+    invoiceNumber: props.info.invoiceNumber,
+
+    billTo: props.info.billTo,
+    billToAddress: props.info.billToAddress,
+    billToEmail: props.info.billToEmail,
+
+    billFrom: props.info.billFrom,
+    billFromAddress: props.info.billFromAddress,
+    billFromEmail: props.info.billFromEmail,
+
+    dateOfIssue: props.info.dateOfIssue,
+
+    total: props.info.currency + props.info.total,
+
+    items: props.items,
+  });
+  return null;
+}
+
 function InvoiceModal(props) {
   return (
     <div>
@@ -39,7 +68,7 @@ function InvoiceModal(props) {
         centered
       >
         <div id="invoiceCapture">
-          <div className="capitalize bg-black text-white d-flex flex-row justify-content-between align-items-start w-100 p-4">
+          <div className="border capitalize bg-black text-white d-flex flex-row justify-content-between align-items-start w-100 p-4">
             <div className="w-100">
               <h4 className="fw-bold my-2">
                 {props.info.billFrom || "John Uberbacher"}
@@ -103,7 +132,7 @@ function InvoiceModal(props) {
                 })}
               </tbody>
             </Table>
-            <Table >
+            <Table>
               <tbody className="bg-dark border-none hello">
                 <tr>
                   <td>&nbsp;</td>
@@ -112,7 +141,10 @@ function InvoiceModal(props) {
                 </tr>
                 <tr className="bg-dark border-none  text-end ">
                   <td></td>
-                  <td className="bg-dark border-none fw-bold" style={{ width: "100px" }}>
+                  <td
+                    className="bg-dark border-none fw-bold"
+                    style={{ width: "100px" }}
+                  >
                     SUBTOTAL
                   </td>
                   <td className="text-end" style={{ width: "100px" }}>
@@ -122,7 +154,10 @@ function InvoiceModal(props) {
                 {props.taxAmmount !== "0.00" && (
                   <tr className="text-end">
                     <td></td>
-                    <td className="bg-dark border-none fw-bold" style={{ width: "100px" }}>
+                    <td
+                      className="bg-dark border-none fw-bold"
+                      style={{ width: "100px" }}
+                    >
                       TAX
                     </td>
                     <td className="text-end" style={{ width: "100px" }}>
@@ -133,7 +168,10 @@ function InvoiceModal(props) {
                 {props.discountAmmount !== "0.00" && (
                   <tr className="text-end">
                     <td></td>
-                    <td className="bg-dark border-none fw-bold" style={{ width: "100px" }}>
+                    <td
+                      className="bg-dark border-none fw-bold"
+                      style={{ width: "100px" }}
+                    >
                       DISCOUNT
                     </td>
                     <td className="text-end" style={{ width: "100px" }}>
@@ -143,7 +181,10 @@ function InvoiceModal(props) {
                 )}
                 <tr className="text-end">
                   <td></td>
-                  <td className="bg-dark border-none fw-bold" style={{ width: "100px" }}>
+                  <td
+                    className="bg-dark border-none fw-bold"
+                    style={{ width: "100px" }}
+                  >
                     TOTAL
                   </td>
                   <td className="text-end" style={{ width: "100px" }}>
@@ -159,19 +200,19 @@ function InvoiceModal(props) {
             )}
           </div>
         </div>
-        <div className="pb-4 px-4 hello">
+        <div className="pb-4 px-4 hello border pt-4">
           <Row>
             <Col md={6}>
               <Button
                 variant="primary"
                 className="d-block w-100"
-                onClick={GenerateInvoice}
+                onClick={SaveInvoice(props)}
               >
                 <BiPaperPlane
                   style={{ width: "15px", height: "15px", marginTop: "-3px" }}
                   className="me-2"
                 />
-                Send Invoice
+                Save Invoice
               </Button>
             </Col>
             <Col md={6}>
