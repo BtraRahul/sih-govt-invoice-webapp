@@ -47,8 +47,15 @@ function SaveInvoice(props) {
     billFromEmail: props.info.billFromEmail,
 
     dateOfIssue: props.info.dateOfIssue,
+    subTotal: props.info.subTotal,
+    taxRate: props.info.taxRate,
+    taxAmount: props.info.taxAmount,
+
+    discountRate: props.info.discountRate,
+    discountAmount: props.info.discountAmount,
 
     total: props.info.currency + props.info.total,
+    notes: props.info.notes,
 
     items: props.items,
   });
@@ -177,7 +184,10 @@ function InvoiceModal(props) {
                     >
                       DISCOUNT
                     </td>
-                    <td className="text-white text-end" style={{ width: "100px" }}>
+                    <td
+                      className="text-white text-end"
+                      style={{ width: "100px" }}
+                    >
                       {props.info.currency} {props.info.discountAmount}
                     </td>
                   </tr>
@@ -197,7 +207,7 @@ function InvoiceModal(props) {
               </tbody>
             </Table>
             {props.info.notes && (
-              <div className="bg-light py-3 px-4 rounded">
+              <div className="border bg-dark py-3 px-4 rounded">
                 {props.info.notes}
               </div>
             )}
