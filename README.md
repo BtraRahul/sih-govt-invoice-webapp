@@ -3,7 +3,7 @@
 
 
 ## Prototype For Web Version:
-[Web Version](https://drive.google.com/file/d/1uixSie33TOeaVVBuagb4tagrnmGdckzw/view?usp=sharing)
+[Web Version](https://drive.google.com/file/d/1oLRI-IbE2UvwpmFkqPX6ov5HipqCjZbO/view?usp=drive_link)
 
 [App Version](https://drive.google.com/file/d/1QFsx4H77JK7EVGW_Y74uF_M-vbObwdKc/view?usp=drive_link)
 
