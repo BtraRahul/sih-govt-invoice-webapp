@@ -131,9 +131,31 @@ hr {
   --bs-table-color: white;
 }
 
-.hello{
+.hello {
   --bs-table-bg: #212529;
   padding: 5px;
   border: #212529;
   background-color: #212529;
+}
+
+.cl-internal-1vi7rps,
+.cl-internal-17bz5n6,
+.cl-internal-1yejcov,
+.cl-internal-uyu30o,
+.cl-internal-uyu30o {
+  color: rgb(225, 225, 225);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  /* font-size: 1.2rem; */
+  background-color: #1a1a1a;
+}
+
+.form-select, .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select{
+  color: white;
+}
+textarea.my-2.form-control {
+    color: white;
+}
+input.my-2.form-control {
+    color: white;
 }

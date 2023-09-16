@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Row from "react-bootstrap/Row";
@@ -24,68 +25,51 @@ function InvoiceForm(props) {
   const [notes, setNotes] = useState("");
   const [total, setTotal] = useState("0.00");
   const [subTotal, setSubTotal] = useState("0.00");
-  const [taxRate, setTaxRate] = useState("");
+  const [taxRate, setTaxRate] = useState(0); // Initialize as a number
+  const [discountRate, setDiscountRate] = useState(0); // Initialize as a number
   const [taxAmount, setTaxAmount] = useState("0.00");
-  const [discountRate, setDiscountRate] = useState("");
   const [discountAmount, setDiscountAmount] = useState("0.00");
 
-  const [items, setItems] = useState([
-    {
-      id: 0,
-      name: "",
-      description: "",
-      price: "1.00",
-      quantity: 1,
-    },
-  ]);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     handleCalculateTotal();
   }, [items]);
-
-  const handleRowDel = (item) => {
-    const updatedItems = items.filter((i) => i.id !== item.id);
-    setItems(updatedItems);
-  };
 
   const handleAddEvent = () => {
     const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     const newItem = {
       id,
       name: "",
-      price: "1.00",
+      price: "0.00",
       description: "",
       quantity: 1,
     };
     setItems([...items, newItem]);
   };
 
+  const handleRowDel = (item) => {
+    const updatedItems = items.filter((i) => i.id !== item.id);
+    setItems(updatedItems);
+  };
+
   const handleCalculateTotal = () => {
     let subTotal = 0;
     items.forEach((item) => {
-      subTotal += parseFloat(
-        (parseFloat(item.price) * item.quantity).toFixed(2)
-      );
+      subTotal += item.price * item.quantity;
     });
 
-    const calculatedSubTotal = parseFloat(subTotal).toFixed(2);
+    const calculatedSubTotal = subTotal;
     setSubTotal(calculatedSubTotal);
 
-    const calculatedTaxAmount = parseFloat(
-      calculatedSubTotal * (taxRate / 100)
-    ).toFixed(2);
+    const calculatedTaxAmount = calculatedSubTotal * (taxRate / 100);
     setTaxAmount(calculatedTaxAmount);
 
-    const calculatedDiscountAmount = parseFloat(
-      calculatedSubTotal * (discountRate / 100)
-    ).toFixed(2);
+    const calculatedDiscountAmount = calculatedSubTotal * (discountRate / 100);
     setDiscountAmount(calculatedDiscountAmount);
 
-    const calculatedTotal = parseFloat(
-      calculatedSubTotal -
-        calculatedDiscountAmount +
-        parseFloat(calculatedTaxAmount)
-    ).toFixed(2);
+    const calculatedTotal =
+      calculatedSubTotal - calculatedDiscountAmount + calculatedTaxAmount;
     setTotal(calculatedTotal);
   };
 
@@ -130,6 +114,12 @@ function InvoiceForm(props) {
         break;
       case "notes":
         setNotes(value);
+        break;
+      case "taxRate":
+        setTaxRate(value);
+        break;
+      case "discountRate":
+        setDiscountRate(value);
         break;
       default:
         break;
@@ -320,7 +310,7 @@ function InvoiceForm(props) {
             <Form.Label className="fw-bold">Notes:</Form.Label>
             <Form.Control
               placeholder="Thanks for your business!"
-              name="notes"
+              name="notes" // Add the name attribute
               value={notes}
               onChange={(event) => editField(event)}
               as="textarea"
@@ -385,9 +375,9 @@ function InvoiceForm(props) {
                   name="taxRate"
                   type="number"
                   value={taxRate}
-                  onChange={(event) => editField(event)}
+                  onInput={(event) => editField(event)}
                   className="bg-212529 border"
-                  placeholder="0.0"
+                  placeholder="0.00"
                   min="0.00"
                   step="0.01"
                   max="100.00"
@@ -398,15 +388,17 @@ function InvoiceForm(props) {
               </InputGroup>
             </Form.Group>
             <Form.Group className="my-3">
-              <Form.Label className="fw-bold text-white">Discount rate:</Form.Label>
+              <Form.Label className="fw-bold text-white">
+                Discount rate:
+              </Form.Label>
               <InputGroup className="my-1 flex-nowrap">
                 <Form.Control
                   name="discountRate"
                   type="number"
                   value={discountRate}
-                  onChange={(event) => editField(event)}
+                  onInput={(event) => editField(event)}
                   className="bg-212529 border"
-                  placeholder="0.0"
+                  placeholder="0.00"
                   min="0.00"
                   step="0.01"
                   max="100.00"
